@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henrique Pimenta Souza | AI Systems Architect</title>
+    
+    <!-- Tailwind CSS (CDN for standalone pure HTML environment) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Selection */
+        ::selection {
+            background-color: rgb(6 182 212 / 0.3); /* cyan-500/30 */
+            color: rgb(165 243 252); /* cyan-200 */
+        }
+
+        /* Custom Scrollbar for Chat */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background-color: #334155;
+            border-radius: 20px;
+        }
+
+        /* Typing Indicator Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Chat Widget Animations */
+        #chat-widget {
+            transform-origin: bottom right;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        #chat-widget.hidden-chat {
+            transform: scale(0.95) translateY(10px);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #chat-widget.visible-chat {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-300 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 border-b bg-transparent border-transparent py-6">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="font-mono text-cyan-400 font-bold tracking-tighter text-xl">
+                HP<span class="text-slate-500">.sys</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <button onclick="Portfolio.scrollTo('philosophy')" class="hover:text-cyan-400 transition-colors">Architecture</button>
+                <button onclick="Portfolio.scrollTo('experience')" class="hover:text-cyan-400 transition-colors">Production Impact</button>
+                <button onclick="Portfolio.scrollTo('projects')" class="hover:text-cyan-400 transition-colors">Systems</button>
+                <button onclick="Portfolio.scrollTo('stack')" class="hover:text-cyan-400 transition-colors">Tech Stack</button>
+            </div>
+            <button onclick="Portfolio.scrollTo('contact')" class="px-4 py-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded font-mono text-sm hover:bg-cyan-500 hover:text-slate-950 transition-all">
+                Initialize Contact
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-40 pb-20 md:pt-48 md:pb-32 px-6 max-w-6xl mx-auto flex flex-col justify-center min-h-[90vh]">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-mono text-slate-400 mb-8 w-fit">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>System Status: Available for new challenges</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-extrabold text-slate-100 tracking-tight leading-tight mb-6">
+            Architecting Trust in <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                Probabilistic Systems.
+            </span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-400 max-w-3xl leading-relaxed mb-10">
+            I am <span class="text-slate-200 font-semibold">Henrique Pimenta Souza</span>, an AI Systems Architect specialized in designing, deploying, and scaling Enterprise Generative AI. I build deterministic, auditable, and compliance-driven layers over LLMs for mission-critical and regulated environments.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+            <button onclick="Portfolio.scrollTo('experience')" class="flex items-center space-x-2 bg-slate-100 text-slate-950 px-6 py-3 rounded font-semibold hover:bg-cyan-400 transition-colors">
+                <span>View Production Impact</span>
+                <i data-lucide="chevron-right" class="w-[18px] h-[18px]"></i>
+            </button>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="flex items-center space-x-2 bg-slate-900 border border-slate-800 text-slate-300 px-6 py-3 rounded font-medium hover:border-slate-600 transition-colors">
+                <i data-lucide="linkedin" class="w-[18px] h-[18px]"></i>
+                <span>LinkedIn Profile</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Engineering Philosophy & Architecture Showcase -->
+    <section id="philosophy" class="py-24 bg-slate-900/50 border-y border-slate-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold text-slate-100 mb-4">Engineering Philosophy</h2>
+                <p class="text-slate-400 max-w-2xl">Moving beyond API wrappers to build resilient, multi-agent ecosystems with high concurrency and strict data governance.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-lg hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="shield-check" class="text-cyan-400 mb-4 w-8 h-8"></i>
+                    <h3 class="text-xl font-semibold text-slate-200 mb-3">Deterministic Guardrails</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Implementing strict validation layers (Pydantic v2) and semantic routing to ensure LLM outputs remain within compliant, auditable boundaries, especially in regulated sectors like healthcare.</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-lg hover:border-blue-500/30 transition-colors">
+                    <i data-lucide="network" class="text-blue-400 mb-4 w-8 h-8"></i>
+                    <h3 class="text-xl font-semibold text-slate-200 mb-3">Agentic Workflows</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Orchestrating multi-agent systems via LangGraph/LangChain, structuring complex tasks into stateful, traceable, and recoverable node-based executions.</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-lg hover:border-emerald-500/30 transition-colors">
+                    <i data-lucide="server-cog" class="text-emerald-400 mb-4 w-8 h-8"></i>
+                    <h3 class="text-xl font-semibold text-slate-200 mb-3">Enterprise Scalability</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Designing high-concurrency backend architectures using FastAPI, Async I/O, and Domain-Driven Design (DDD) to support thousands of active users seamlessly.</p>
+                </div>
+            </div>
+
+            <!-- Architectural Diagram Visualization -->
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-8 overflow-x-auto">
+                <div class="text-xs font-mono text-slate-500 mb-6 uppercase tracking-wider">Enterprise RAG & HITL Architecture Blueprint</div>
+                <div class="min-w-[800px] flex items-center justify-between font-mono text-sm">
+                    <!-- User/Input -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-full border border-slate-700 bg-slate-900 flex items-center justify-center text-slate-400">
+                            User
+                        </div>
+                    </div>
+                    
+                    <div class="h-px bg-slate-800 w-8 flex-1 mx-2 relative"><div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 border-t border-r border-slate-600 rotate-45"></div></div>
+                    
+                    <!-- Orchestrator -->
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="px-4 py-3 border border-cyan-500/50 bg-cyan-950/20 rounded text-cyan-400 text-center">
+                            <i data-lucide="activity" class="mx-auto mb-1 w-4 h-4"></i>
+                            API Gateway<br/><span class="text-[10px]">(FastAPI / Async)</span>
+                        </div>
+                        <div class="text-[10px] text-slate-500">Auth & Rate Limiting</div>
+                    </div>
+
+                    <div class="h-px bg-slate-800 w-8 flex-1 mx-2 relative"><div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 border-t border-r border-slate-600 rotate-45"></div></div>
+
+                    <!-- Core Logic -->
+                    <div class="border border-slate-700 bg-slate-900 rounded-lg p-4 flex gap-4">
+                        <div class="flex flex-col gap-2">
+                            <div class="px-3 py-2 border border-blue-500/30 bg-blue-950/20 rounded text-blue-300 text-xs text-center">Context Eng.</div>
+                            <div class="px-3 py-2 border border-slate-600 rounded bg-slate-800 text-slate-300 text-xs text-center flex items-center justify-center gap-1">
+                                <i data-lucide="database" class="w-3 h-3"></i> Vector DB
+                            </div>
+                        </div>
+                        <div class="flex items-center text-slate-600">→</div>
+                        <div class="flex flex-col gap-2">
+                            <div class="px-3 py-2 border border-emerald-500/30 bg-emerald-950/20 rounded text-emerald-300 text-xs text-center font-bold">LLM Engine</div>
+                            <div class="px-3 py-2 border border-orange-500/30 bg-orange-950/20 rounded text-orange-300 text-xs text-center">Guardrails (Pydantic)</div>
+                        </div>
+                    </div>
+
+                    <div class="h-px bg-slate-800 w-8 flex-1 mx-2 relative"><div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 border-t border-r border-slate-600 rotate-45"></div></div>
+
+                    <!-- Output/HITL -->
+                    <div class="flex flex-col gap-3">
+                        <div class="px-4 py-2 border border-slate-700 bg-slate-900 rounded text-slate-300 text-xs flex justify-between items-center gap-4">
+                            <span>Auto-Resolution</span> <span class="text-emerald-400 font-bold">88%</span>
+                        </div>
+                        <div class="px-4 py-2 border border-purple-500/30 bg-purple-950/20 rounded text-purple-300 text-xs flex justify-between items-center gap-4">
+                            <span>HITL (Zendesk)</span> <span class="text-purple-400 font-bold">Escalation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Production Impact / Experience -->
+    <section id="experience" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-slate-100 mb-12 flex items-center gap-3">
+                <i data-lucide="workflow" class="text-cyan-500 w-8 h-8"></i>
+                Production Impact & Leadership
+            </h2>
+
+            <div class="space-y-12">
+                <!-- Omni Saúde -->
+                <div class="relative pl-8 border-l border-slate-800">
+                    <div class="absolute w-4 h-4 rounded-full bg-cyan-500 -left-[8.5px] top-1 border-4 border-slate-950"></div>
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-200">AI Systems & Automation Engineer</h3>
+                            <div class="text-cyan-400 font-medium text-lg mt-1">Omni Saúde</div>
+                        </div>
+                        <div class="text-slate-500 font-mono text-sm mt-2 md:mt-0">Oct. 2024 — Present | São Paulo, BR</div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-4 gap-6 mb-6">
+                        <div class="bg-slate-900/50 border border-slate-800 rounded p-4">
+                            <div class="text-3xl font-bold text-slate-100 mb-1">+60k</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-wide">AI Conversations / Month</div>
+                        </div>
+                        <div class="bg-slate-900/50 border border-slate-800 rounded p-4">
+                            <div class="text-3xl font-bold text-emerald-400 mb-1">88%</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-wide">Autonomous Resolution</div>
+                        </div>
+                        <div class="bg-slate-900/50 border border-slate-800 rounded p-4">
+                            <div class="text-3xl font-bold text-cyan-400 mb-1">-40%</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-wide">Support Ticket Volume</div>
+                        </div>
+                        <div class="bg-slate-900/50 border border-slate-800 rounded p-4">
+                            <div class="text-3xl font-bold text-slate-100 mb-1">+5k</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-wide">Active Users</div>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 text-slate-400 mb-6">
+                        <li class="flex gap-2"><i data-lucide="chevron-right" class="text-cyan-500 shrink-0 mt-1 w-4 h-4"></i> <span>Architected and orchestrated a production-grade multi-agent support ecosystem integrated with Zendesk via a Human-in-the-Loop (HITL) architecture, ensuring safe escalations in a highly regulated healthcare environment.</span></li>
+                        <li class="flex gap-2"><i data-lucide="chevron-right" class="text-cyan-500 shrink-0 mt-1 w-4 h-4"></i> <span>Engineered high-concurrency backend microservices using <strong>FastAPI</strong> and <strong>Async I/O</strong>, enforcing deterministic LLM reasoning control via strict type-safe validation (<strong>Pydantic v2</strong>).</span></li>
+                        <li class="flex gap-2"><i data-lucide="chevron-right" class="text-cyan-500 shrink-0 mt-1 w-4 h-4"></i> <span>Implemented comprehensive AI governance, system guardrails, interaction auditing, and context control optimization utilizing Pandas and PyArrow.</span></li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-full">Multi-Agent Systems</span>
+                        <span class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-full">FastAPI</span>
+                        <span class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-full">Pydantic v2</span>
+                        <span class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-full">HITL</span>
+                        <span class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-full">Zendesk API</span>
+                        <span class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-full">AI Governance</span>
+                    </div>
+                </div>
+
+                <!-- Bridge -->
+                <div class="relative pl-8 border-l border-slate-800">
+                    <div class="absolute w-3 h-3 rounded-full bg-slate-600 -left-[6.5px] top-1.5 border-2 border-slate-950"></div>
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-200">CEO & Founder</h3>
+                            <div class="text-slate-400 font-medium mt-1">Bridge (AI-Native B2B2C SaaS)</div>
+                        </div>
+                        <div class="text-slate-500 font-mono text-sm mt-2 md:mt-0">Feb. 2025 — Feb. 2026 | São Paulo, BR</div>
+                    </div>
+                    <p class="text-slate-400 mb-4">
+                        Led the design and execution of an AI-native recruiting platform heavily focused on Explainable AI (XAI), bias mitigation, and LGPD-ready compliance by design. Conducted successful pilot with The Growth Hub resulting in a 10/10 NPS in UX and perceived impact.
+                    </p>
+                    <ul class="space-y-2 text-slate-400 mb-6 text-sm">
+                        <li class="flex gap-2"><i data-lucide="chevron-right" class="text-slate-600 shrink-0 mt-0.5 w-4 h-4"></i> <span>Implemented sophisticated RAG pipelines for deep contextual candidate-job matching and explainable justification generation.</span></li>
+                        <li class="flex gap-2"><i data-lucide="chevron-right" class="text-slate-600 shrink-0 mt-0.5 w-4 h-4"></i> <span>Executed strategic product analysis (TAM/SAM/SOM, VRIO) and risk-vs-impact roadmap prioritization.</span></li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">Explainable AI (XAI)</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">Enterprise RAG</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">Product Strategy</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">SaaS Architecture</span>
+                    </div>
+                </div>
+
+                <!-- Stefanini -->
+                <div class="relative pl-8 border-l border-transparent">
+                    <div class="absolute w-3 h-3 rounded-full bg-slate-600 -left-[6.5px] top-1.5 border-2 border-slate-950"></div>
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-200">Full Stack Developer</h3>
+                            <div class="text-slate-400 font-medium mt-1">Stefanini</div>
+                        </div>
+                        <div class="text-slate-500 font-mono text-sm mt-2 md:mt-0">Aug. 2024 — Sep. 2025 | São Paulo, BR</div>
+                    </div>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        Developed enterprise AI solutions, including agent creation with RAG and Context Engineering over a 10GB+ document base (extraction, normalization, and standardization in Python). Architected .NET Core APIs applying Domain-Driven Design (DDD).
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">RAG</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">.NET Core</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">DDD</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">Python</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">Angular</span>
+                        <span class="px-3 py-1 bg-slate-800/50 text-slate-400 text-xs rounded-full border border-slate-700">Vue.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Systems / Projects -->
+    <section id="projects" class="py-24 bg-slate-900/30 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-slate-100 mb-4 flex items-center gap-3">
+                <i data-lucide="code-2" class="text-cyan-500 w-8 h-8"></i>
+                System Architectures & R&D
+            </h2>
+            <p class="text-slate-400 mb-12 max-w-2xl">Showcasing deep technical implementations across Natural Language processing, specialized RAG configurations, and asynchronous pipelines.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="group bg-slate-950 border border-slate-800 rounded-xl p-8 hover:border-cyan-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="database" class="w-[100px] h-[100px]"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-200 mb-2">Sales Insights API</h3>
+                    <div class="text-cyan-400 text-sm font-mono mb-6">RAG NL-to-SQL Architecture</div>
+                    <p class="text-slate-400 mb-6 text-sm leading-relaxed relative z-10">
+                        A specialized RAG pipeline designed to convert Natural Language queries into validated SQL. Implements schema-based contextual retrieval, query validation mechanisms, and humanized response generation, bridging the gap between non-technical users and complex databases.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6 relative z-10">
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Python</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">FastAPI</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">PostgreSQL</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">SQLAlchemy</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Docker</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">LangChain</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group bg-slate-950 border border-slate-800 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="eye" class="w-[100px] h-[100px]"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-200 mb-2">Intelligent OCR + LLM Pipeline</h3>
+                    <div class="text-blue-400 text-sm font-mono mb-6">Automated Document Processing</div>
+                    <p class="text-slate-400 mb-6 text-sm leading-relaxed relative z-10">
+                        An extraction pipeline utilizing PaddleOCR and Transformer models for the semantic interpretation of resumes and fiscal documents. Includes capabilities for structured summarization and Q&A, coupled with comprehensive audit logging in MongoDB.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6 relative z-10">
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">PaddleOCR</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Transformers</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">MongoDB</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Document AI</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Q&A System</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group bg-slate-950 border border-slate-800 rounded-xl p-8 hover:border-emerald-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="activity" class="w-[100px] h-[100px]"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-200 mb-2">Jira Automation & STT</h3>
+                    <div class="text-emerald-400 text-sm font-mono mb-6">Large-Scale Asynchronous Pipeline</div>
+                    <p class="text-slate-400 mb-6 text-sm leading-relaxed relative z-10">
+                        Automated data extraction via the Jira API, featuring real-time observability through Grafana. Integrates OpenAI Whisper powered by GPU acceleration (CUDA) for high-throughput, large-scale speech-to-text transcription workflows.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6 relative z-10">
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">OpenAI Whisper</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">CUDA / GPU</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Grafana</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Jira API</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Observability</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="group bg-slate-950 border border-slate-800 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="terminal" class="w-[100px] h-[100px]"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-200 mb-2">SAI App (Stefanini)</h3>
+                    <div class="text-purple-400 text-sm font-mono mb-6">Intelligent Enterprise Automation</div>
+                    <p class="text-slate-400 mb-6 text-sm leading-relaxed relative z-10">
+                        An AI-driven application designed to augment productivity through intelligent automation. Built with scalable .NET / ASP.NET Web APIs applying strict Domain-Driven Design (DDD) principles, serving a modular TypeScript frontend (Angular/Vue.js).
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6 relative z-10">
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">.NET Core</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">C#</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Angular</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">Vue.js</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">TypeScript</span>
+                        <span class="px-2 py-1 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded">DDD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specializations -->
+    <section id="stack" class="py-24 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-slate-100 mb-12 flex items-center gap-3">
+                <i data-lucide="cpu" class="text-cyan-500 w-8 h-8"></i>
+                Technical Architecture Stack
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- GenAI -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6 pb-2 border-b border-slate-800">
+                        <i data-lucide="network" class="text-cyan-400 w-5 h-5"></i>
+                        <h3 class="text-xl font-semibold text-slate-200">Intelligent Systems</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Multi-Agent Systems & LangGraph</span> <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Enterprise RAG & Context Eng.</span> <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">LLM Validation & Guardrails</span> <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Explainable AI (XAI) & Governance</span> <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Hugging Face Embeddings</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">OpenAI Whisper / Botpress</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span></li>
+                    </ul>
+                </div>
+
+                <!-- Backend -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6 pb-2 border-b border-slate-800">
+                        <i data-lucide="terminal" class="text-emerald-400 w-5 h-5"></i>
+                        <h3 class="text-xl font-semibold text-slate-200">Backend & Architecture</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Python (FastAPI, Async I/O)</span> <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Pydantic v2 (Validation Layers)</span> <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">.NET Core (C#) & Java (Spring)</span> <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">High-Concurrency Microservices</span> <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Domain-Driven Design (DDD)</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Clean Architecture & RabbitMQ</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span></li>
+                    </ul>
+                </div>
+
+                <!-- Data & Infra -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6 pb-2 border-b border-slate-800">
+                        <i data-lucide="database" class="text-blue-400 w-5 h-5"></i>
+                        <h3 class="text-xl font-semibold text-slate-200">Data, Infra & Integrations</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Vector DBs (FAISS)</span> <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">PostgreSQL, MongoDB, Snowflake</span> <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Pandas & PyArrow</span> <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Docker, AWS, CI/CD</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Zendesk API & HITL Pipelines</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span></li>
+                        <li class="flex justify-between items-center"><span class="text-slate-300">Grafana Observability</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-16 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
+                <div class="flex gap-6">
+                    <span><strong>Education:</strong> System Analysis (SPTech, exp. 2026) | DB Tech (Etec)</span>
+                </div>
+                <div class="flex gap-6">
+                    <span><strong>Certs:</strong> Google Data Analytics</span>
+                    <span><strong>Methodologies:</strong> SOLID, Clean Code, Agile</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 bg-slate-900 border-t border-slate-800 text-center">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-slate-100 mb-6">Ready to Scale Your AI Infrastructure?</h2>
+            <p class="text-slate-400 text-lg mb-10">
+                Currently open for strategic conversations regarding Enterprise AI Architecture, Staff Engineering roles, or complex integration challenges.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a href="mailto:pimenttasouzza02@gmail.com" class="flex items-center gap-3 px-8 py-4 bg-cyan-500 text-slate-950 font-bold rounded-lg hover:bg-cyan-400 transition-colors w-full sm:w-auto justify-center">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Contact via Email
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="flex items-center gap-3 px-8 py-4 bg-slate-950 border border-slate-700 text-slate-200 font-bold rounded-lg hover:border-cyan-500 hover:text-cyan-400 transition-colors w-full sm:w-auto justify-center">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-slate-500 text-sm font-mono border-t border-slate-800">
+        <p>System Architected by Henrique Pimenta Souza © <span id="currentYear"></span></p>
+        <p class="mt-2 text-xs">Built with Vanilla HTML, CSS & JavaScript. Decoupled & Enterprise-ready.</p>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- AI CHAT WIDGET ("Le") UI                   -->
+    <!-- ========================================== -->
+    
+    <!-- Floating Button -->
+    <button id="chat-toggle-btn" onclick="ChatUI.toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-cyan-600 hover:bg-cyan-500 text-slate-950 rounded-full shadow-lg shadow-cyan-500/20 flex items-center justify-center transition-all z-50 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950">
+        <i data-lucide="message-square-text" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Chat Interface -->
+    <div id="chat-widget" class="fixed bottom-24 right-6 w-[380px] h-[600px] max-h-[80vh] bg-slate-900 border border-slate-700 rounded-xl shadow-2xl flex flex-col z-50 hidden-chat overflow-hidden">
+        
+        <!-- Header -->
+        <div class="px-5 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <div class="w-9 h-9 rounded-full bg-cyan-950 border border-cyan-500/50 flex items-center justify-center text-cyan-400">
+                        <i data-lucide="bot" class="w-5 h-5"></i>
+                    </div>
+                    <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-950 rounded-full"></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-100 text-sm">Le <span class="text-[10px] font-mono font-normal text-cyan-500 ml-1 border border-cyan-500/30 px-1 rounded bg-cyan-950/30">AI ASSISTANT</span></h4>
+                    <p class="text-[11px] text-slate-400">Trained on Henrique's Architecture</p>
+                </div>
+            </div>
+            <button onclick="ChatUI.toggleChat()" class="text-slate-400 hover:text-slate-200 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Chat History -->
+        <div id="chat-history" class="flex-1 p-5 overflow-y-auto chat-scroll flex flex-col gap-4 bg-slate-900/50">
+            <!-- Messages will be injected here via JS -->
+        </div>
+
+        <!-- Typing Indicator (Hidden by default) -->
+        <div id="typing-indicator" class="px-5 pb-3 hidden">
+            <div class="bg-slate-800 text-slate-300 rounded-2xl rounded-tl-sm px-4 py-3 w-fit text-sm border border-slate-700 flex items-center gap-1 h-10">
+                <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+                <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+                <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 border-t border-slate-800 bg-slate-950">
+            <form id="chat-form" onsubmit="ChatUI.handleSubmit(event)" class="relative flex items-center">
+                <input 
+                    type="text" 
+                    id="chat-input" 
+                    placeholder="Ask about my systems architecture..." 
+                    class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-lg pl-4 pr-12 py-3 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all placeholder:text-slate-500"
+                    autocomplete="off"
+                >
+                <button type="submit" id="chat-send-btn" class="absolute right-2 p-1.5 bg-cyan-600 hover:bg-cyan-500 text-slate-950 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </form>
+            <div class="mt-3 flex justify-center text-[10px] text-slate-500 font-mono">
+                Powered by Python & FastAPI (Soon)
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT ARCHITECTURE & LOGIC            -->
+    <!-- ========================================== -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------
+        // MODULE: /js/config.js
+        // ------------------------------------------
+        const Config = {
+            API_BASE_URL: "http://localhost:8000",
+            CHAT_ENDPOINT: "/chat",
+            MAX_RETRIES: 3,
+            TIMEOUT_MS: 10000,
+            USE_MOCK: true // Set to false when connecting to the real Python backend
+        };
+
+        // ------------------------------------------
+        // MODULE: /js/utils.js
+        // ------------------------------------------
+        const Utils = {
+            generateUUID() {
+                // Fallback for crypto.randomUUID if needed, but modern browsers support it.
+                return window.crypto && crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            },
+            sanitizeHTML(str) {
+                const temp = document.createElement('div');
+                temp.textContent = str;
+                return temp.innerHTML;
+            }
+        };
+
+        // ------------------------------------------
+        // MODULE: /js/stateManager.js
+        // ------------------------------------------
+        const StateManager = {
+            state: {
+                conversation_id: Utils.generateUUID(),
+                status: 'idle', // 'idle', 'loading', 'error', 'connected'
+                isOpen: false,
+                isInitialized: false
+            },
+            setStatus(newStatus) {
+                this.state.status = newStatus;
+                ChatUI.updateUIState();
+            }
+        };
+
+        // ------------------------------------------
+        // MODULE: /js/chatService.js
+        // (Data Layer - Isolated from UI)
+        // ------------------------------------------
+        const ChatService = {
+            async sendMessage(messageText) {
+                const payload = {
+                    message: messageText,
+                    conversation_id: StateManager.state.conversation_id,
+                    metadata: {
+                        role: "recruiter",
+                        client_timestamp: new Date().toISOString()
+                    }
+                };
+
+                // Execução do Mock (Para desenvolvimento frontend)
+                if (Config.USE_MOCK) {
+                    return this._mockResponse(messageText);
+                }
+
+                // Execução Real com Retry Exponencial e Timeout
+                return this._fetchWithRetry(`${Config.API_BASE_URL}${Config.CHAT_ENDPOINT}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            },
+
+            async _fetchWithRetry(url, options, retries = Config.MAX_RETRIES) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), Config.TIMEOUT_MS);
+                    options.signal = controller.signal;
+                    
+                    const response = await fetch(url, options);
+                    clearTimeout(timeoutId);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    if (retries > 0) {
+                        console.warn(`[ChatService] Retrying API call... attempts left: ${retries - 1}`);
+                        const backoffTime = Math.pow(2, Config.MAX_RETRIES - retries) * 1000;
+                        await new Promise(r => setTimeout(r, backoffTime));
+                        return this._fetchWithRetry(url, options, retries - 1);
+                    }
+                    throw error;
+                }
+            },
+
+            // Mock Data for UX fidelity before backend integration
+            async _mockResponse(userMsg) {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        let aiReply = "A arquitetura está preparada para me conectar ao backend via REST em breve. Por enquanto, posso adiantar que Henrique é especialista em projetar sistemas LLM auditáveis, especialmente usando LangGraph e Pydantic.";
+                        
+                        const lowerMsg = userMsg.toLowerCase();
+                        if(lowerMsg.includes("escala") || lowerMsg.includes("scale")) {
+                            aiReply = "Sobre escala: Na Omni Saúde, o sistema lida com +60.000 conversas por mês. Henrique utilizou FastAPI e Async I/O para garantir alta concorrência sem bloqueio de thread, suportando picos de tráfego com latência mínima.";
+                        } else if(lowerMsg.includes("arquitetura") || lowerMsg.includes("architecture")) {
+                            aiReply = "A principal filosofia arquitetural do Henrique é 'Determinismo sobre Probabilidade'. Ele não faz apenas chamadas à API da OpenAI; ele constrói guardrails estritos usando Domain-Driven Design e validações tipadas para garantir outputs seguros.";
+                        } else if(lowerMsg.includes("omni")) {
+                            aiReply = "Na Omni Saúde, o grande impacto foi aumentar a resolução autônoma de tickets de 55% para 88%, reduzindo drasticamente a carga da equipe humana. Tudo isso com um fluxo Human-in-the-Loop em um ambiente altamente regulado.";
+                        }
+
+                        resolve({
+                            reply: aiReply,
+                            conversation_id: StateManager.state.conversation_id,
+                            confidence: 0.99
+                        });
+                    }, 1200 + Math.random() * 800); // Simulate network latency
+                });
+            }
+        };
+
+        // ------------------------------------------
+        // MODULE: /js/chatUI.js
+        // (View Layer - DOM Manipulation Only)
+        // ------------------------------------------
+        const ChatUI = {
+            elements: {
+                widget: document.getElementById('chat-widget'),
+                history: document.getElementById('chat-history'),
+                input: document.getElementById('chat-input'),
+                form: document.getElementById('chat-form'),
+                sendBtn: document.getElementById('chat-send-btn'),
+                typingIndicator: document.getElementById('typing-indicator'),
+                toggleBtn: document.getElementById('chat-toggle-btn')
+            },
+
+            init() {
+                if(StateManager.state.isInitialized) return;
+                
+                // Add Initial Context Message
+                this.renderMessage("Hi! I'm Le, Henrique's AI assistant. I'm connected to his knowledge base. What would you like to know about his system architectures, production metrics, or tech stack?", 'bot');
+                
+                // Add Quick Prompts
+                this.renderQuickPrompts([
+                    "Como você escala sistemas?",
+                    "Fale da arquitetura na Omni Saúde",
+                    "Qual o seu foco em GenAI?"
+                ]);
+
+                StateManager.state.isInitialized = true;
+            },
+
+            toggleChat() {
+                const isHidden = this.elements.widget.classList.contains('hidden-chat');
+                if (isHidden) {
+                    this.elements.widget.classList.remove('hidden-chat');
+                    this.elements.widget.classList.add('visible-chat');
+                    StateManager.state.isOpen = true;
+                    this.init(); // Initialize on first open
+                    setTimeout(() => this.elements.input.focus(), 300);
+                } else {
+                    this.elements.widget.classList.add('hidden-chat');
+                    this.elements.widget.classList.remove('visible-chat');
+                    StateManager.state.isOpen = false;
+                }
+            },
+
+            async handleSubmit(e) {
+                e.preventDefault();
+                const text = this.elements.input.value.trim();
+                if (!text || StateManager.state.status === 'loading') return;
+
+                const sanitizedText = Utils.sanitizeHTML(text);
+                
+                // 1. Render User Message
+                this.renderMessage(sanitizedText, 'user');
+                this.elements.input.value = '';
+                this.removeQuickPrompts(); // Clear buttons after first interaction
+
+                // 2. Set Loading State
+                StateManager.setStatus('loading');
+
+                try {
+                    // 3. Call Service
+                    const response = await ChatService.sendMessage(sanitizedText);
+                    
+                    // 4. Render AI Reply
+                    this.renderMessage(response.reply, 'bot');
+                } catch (error) {
+                    console.error("Chat Error:", error);
+                    this.renderMessage("Oops. Ocorreu um erro ao comunicar com o servidor de inferência. A conexão deve ser restaurada em breve.", 'system');
+                } finally {
+                    StateManager.setStatus('idle');
+                }
+            },
+
+            sendQuickPrompt(text) {
+                this.elements.input.value = text;
+                this.elements.form.dispatchEvent(new Event('submit'));
+            },
+
+            renderMessage(text, sender) {
+                const wrapperDiv = document.createElement('div');
+                wrapperDiv.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+
+                const innerDiv = document.createElement('div');
+                
+                if (sender === 'user') {
+                    innerDiv.className = 'bg-cyan-600 text-slate-100 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[85%] text-sm shadow-md';
+                } else if (sender === 'bot') {
+                    innerDiv.className = 'bg-slate-800 text-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] text-sm border border-slate-700 shadow-md leading-relaxed';
+                } else {
+                    // System error
+                    innerDiv.className = 'bg-red-950/50 text-red-400 rounded-lg px-4 py-2 text-xs border border-red-900/50 text-center w-full';
+                }
+
+                innerDiv.innerHTML = text; // Text is sanitized before passing to this function
+                wrapperDiv.appendChild(innerDiv);
+                
+                this.elements.history.appendChild(wrapperDiv);
+                this.scrollToBottom();
+            },
+
+            renderQuickPrompts(prompts) {
+                const container = document.createElement('div');
+                container.className = "flex flex-wrap gap-2 mt-2 quick-prompts-container";
+                
+                prompts.forEach(prompt => {
+                    const btn = document.createElement('button');
+                    btn.className = "text-xs border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 px-3 py-1.5 rounded-full transition-colors font-medium";
+                    btn.textContent = prompt;
+                    btn.onclick = () => this.sendQuickPrompt(prompt);
+                    container.appendChild(btn);
+                });
+
+                this.elements.history.appendChild(container);
+                this.scrollToBottom();
+            },
+
+            removeQuickPrompts() {
+                const container = document.querySelector('.quick-prompts-container');
+                if(container) container.remove();
+            },
+
+            updateUIState() {
+                const isLoading = StateManager.state.status === 'loading';
+                
+                // Toggle Typing Indicator
+                this.elements.typingIndicator.style.display = isLoading ? 'block' : 'none';
+                
+                // Toggle Input State
+                this.elements.input.disabled = isLoading;
+                this.elements.sendBtn.disabled = isLoading;
+                
+                if (isLoading) {
+                    this.elements.sendBtn.classList.replace('bg-cyan-600', 'bg-slate-700');
+                    this.elements.sendBtn.classList.replace('text-slate-950', 'text-slate-500');
+                    this.scrollToBottom();
+                } else {
+                    this.elements.sendBtn.classList.replace('bg-slate-700', 'bg-cyan-600');
+                    this.elements.sendBtn.classList.replace('text-slate-500', 'text-slate-950');
+                    setTimeout(() => this.elements.input.focus(), 10);
+                }
+            },
+
+            scrollToBottom() {
+                this.elements.history.scrollTop = this.elements.history.scrollHeight;
+            }
+        };
+
+        // ------------------------------------------
+        // MODULE: /js/portfolioCore.js
+        // ------------------------------------------
+        const Portfolio = {
+            init() {
+                window.addEventListener('scroll', this.handleScroll.bind(this));
+                this.handleScroll(); // initial check
+            },
+            
+            handleScroll() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-slate-950/80', 'backdrop-blur-md', 'border-slate-800', 'py-4');
+                    navbar.classList.remove('bg-transparent', 'border-transparent', 'py-6');
+                } else {
+                    navbar.classList.add('bg-transparent', 'border-transparent', 'py-6');
+                    navbar.classList.remove('bg-slate-950/80', 'backdrop-blur-md', 'border-slate-800', 'py-4');
+                }
+            },
+
+            scrollTo(id) {
+                const element = document.getElementById(id);
+                if (element) {
+                    const offset = 80; // account for fixed header
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = element.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        };
+
+        // Bootstrapping
+        document.addEventListener('DOMContentLoaded', () => {
+            Portfolio.init();
+        });
+
+    </script>
+</body>
+</html>
